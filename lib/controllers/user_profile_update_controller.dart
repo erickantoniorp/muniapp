@@ -78,7 +78,7 @@ class UserProfileUpdateController {
 
     Stream? stream = await usersProvider.update(myUser, imageFile!);
     if( stream!= null) {
-      stream!.listen((res) async {
+      stream.listen((res) async {
         _progressDialog!.close();
 
         // ResponseApi responseApi = await usersProvider.create(user);

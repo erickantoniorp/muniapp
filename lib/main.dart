@@ -2,13 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:muniapp/pages/signature.dart';
-import 'package:muniapp/pages/updateprofile.dart';
 import 'package:muniapp/utils/utils.dart';
-import 'package:muniapp/pages/login.dart';
-import 'package:muniapp/pages/register.dart';
-import 'package:muniapp/pages/home.dart';
-
+import 'package:muniapp/pages/pages.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -55,6 +50,7 @@ class _MyAppState extends State<MyApp> {
         'home'        : (BuildContext context) => MyHomePage(),
         'user/update' : (BuildContext context) => UserProfileUpdatePage(),
         'signature'   : (BuildContext context) => SignaturePage(),
+        'attendance'  : (BuildContext context) => AttendancePage(),
 /*        'roles' : (BuildContext context) => RolesPage(),
         'client/products/list' : (BuildContext context) => ClientProductsListPage(),
         'client/update' : (BuildContext context) => ClientUpdatePage(),

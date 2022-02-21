@@ -23,7 +23,7 @@ class LoginController {
 
     usersProvider.init(context);
 
-    final String userFromSharedPref = await _sharedPref.read('user');
+    String? userFromSharedPref = await _sharedPref.read('user');
     if( userFromSharedPref != null ) {
       User user = User.fromJson(userFromSharedPref);
 
@@ -52,30 +52,34 @@ class LoginController {
     String password = passwordController.text.trim();
     ResponseApi? responseApi = await usersProvider.login(email, password);
 
-    print('Respuesta object: ${responseApi}');
-    print('Respuesta: ${responseApi!.toJson()}');
+    if( responseApi!= null) {
+      print('Respuesta object: ${responseApi}');
+      print('Respuesta: ${responseApi.toJson()}');
 
-    if (responseApi.success == "true") {
-      //User user = User.fromJson(json.decode( responseApi.data! ));
-      String tmp = json.encode( responseApi.data! );
-      User user = User.fromJson( tmp );
-      _sharedPref.save('user', user.toJson());
+      if (responseApi.success == "true") {
+        //User user = User.fromJson(json.decode( responseApi.data! ));
+        String tmp = json.encode(responseApi.data!);
+        User user = User.fromJson(tmp);
+        _sharedPref.save('user', user.toJson());
 
-      //pushNotificationsProvider.saveToken(user.id);
+        //pushNotificationsProvider.saveToken(user.id);
 
-      print('USUARIO LOGEADO: ${user.toJson()}');
+        print('USUARIO LOGEADO: ${user.toJson()}');
 
-      //TODO: Revisar como cambiar esto
-      if (user.roles!.length > 0 && user.roles![0].name == "oper") {
-        Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+        //TODO: Revisar como cambiar esto
+        if (user.roles!.length > 0 && user.roles![0].name == "oper") {
+          Navigator.pushNamedAndRemoveUntil(context, 'home', (route) => false);
+        }
+        else {
+          Navigator.pushNamedAndRemoveUntil(
+              context, user.roles![0].name, (route) => false);
+        }
       }
       else {
-        Navigator.pushNamedAndRemoveUntil(context, user.roles![0].name, (route) => false);
+        MySnackbar.show(context, responseApi.message);
       }
-
-    }
-    else {
-      MySnackbar.show(context, responseApi.message);
+    }else {
+      MySnackbar.show(context, "Ocurrió un Error al Intentar Iniciar Sesión");
     }
 
   }

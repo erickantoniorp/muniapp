@@ -156,7 +156,7 @@ class SignController {
             else {
                 Stream? stream = await markProvider.sendWithImage(newMark, markImageFile!);
                 if (stream != null) {
-                    stream!.listen((res) {
+                    stream.listen((res) {
                         _progressDialog!.close();
 
                         try {

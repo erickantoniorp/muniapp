@@ -240,6 +240,11 @@ class _MyHomePageState extends State<MyHomePage> {
             trailing: Icon(Icons.account_box),
           ),
           ListTile(
+            onTap: _con.goToAttendance,
+            title: Text('Asistencia'),
+            trailing: Icon(Icons.access_alarm),
+          ),
+          ListTile(
             onTap: _con.emitPosition,
             title: Text('Emitir Posición'),
             trailing: Icon(Icons.add_location),

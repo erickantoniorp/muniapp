@@ -93,7 +93,7 @@ class RegisterController {
 
     Stream? stream = await usersProvider.createWithImage(user, imageFile);
     if ( stream != null) {
-      stream!.listen((res) {
+      stream.listen((res) {
         _progressDialog!.close();
 
         try {

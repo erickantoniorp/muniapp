@@ -1,0 +1,2 @@
+com/igrik12/battery_info/BuildConfig.java
+ com.igrik12.battery_info.BuildConfig

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:battery_info/model/android_battery_info.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -28,69 +29,70 @@ import 'package:muniapp/utils/my_snackbar.dart';
 
 class HomeController {
 
-    BuildContext? context;
-    GlobalKey<ScaffoldState> key = new GlobalKey<ScaffoldState>();
+  BuildContext? context;
+  GlobalKey<ScaffoldState> key = new GlobalKey<ScaffoldState>();
 
-    UsersProvider usersProvider                       = UsersProvider();
-    AlertProvider alertProvider                       = AlertProvider();
-    MarkProvider markProvider                         = MarkProvider();
-    final SharedPref _sharedPref                      = SharedPref();
+  UsersProvider usersProvider                       = UsersProvider();
+  AlertProvider alertProvider                       = AlertProvider();
+  MarkProvider markProvider                         = MarkProvider();
+  final SharedPref _sharedPref                      = SharedPref();
 
-    PickedFile? pickedFile;
-    Function? refresh;
-    ProgressDialog? _progressDialog;
+  PickedFile? pickedFile;
+  Function? refresh;
+  ProgressDialog? _progressDialog;
 
-    File? imageFile;
-    File? markImageFile;
+  File? imageFile;
+  File? markImageFile;
 
-    bool isEnable = true;
-    bool isClose = false;
+  bool isEnable = true;
+  bool isClose = false;
 
-    late IO.Socket socket;
+  IO.Socket? socket;
 
-    //Para geolocalizacion
-    late Position _currentPosition;
-    late String _currentAddress;
-    User? user;
+  //Para geolocalizacion
+  Position? _currentPosition;
+  String? _currentAddress;
+  User? user;
 
-    bool isEmitting = false;
+  bool isEmitting = false;
 
-    Timer? timerObj;
-    int frec = 3;
+  Timer? timerObj;
+  int frec = 3;
 
-    //Para biometrico
-    LocalAuthentication? localAuth;
-    bool isBiomtricAvailable = false;
-    bool biometricSent = false;
+  //Para biometrico
+  LocalAuthentication? localAuth;
+  bool isBiomtricAvailable = false;
+  bool biometricSent = false;
 
-    int batteryLevel = 0;
+  int batteryLevel = 0;
 
-    //SignatureController? signController;
+  //SignatureController? signController;
 
-    void init(BuildContext context, Function refresh) async{
-        this.context = context;
-        this.refresh = refresh;
-        usersProvider.init(context);
-        _progressDialog = ProgressDialog(context: context);
+  void init(BuildContext context, Function refresh) async{
+    this.context = context;
+    this.refresh = refresh;
+    _progressDialog = ProgressDialog(context: context);
 
-        user = User.fromJson(await _sharedPref.read('user'));
+    //Se supone ya existe la sesión del usuario por el login
+    user = User.fromJson(await _sharedPref.read('user'));
+    usersProvider.init(context, sessionUser: user);
 
-        //Para la firma
-        /*signController = SignatureController(
+    //Para la firma
+    /*signController = SignatureController(
             penColor: Colors.blue,
             penStrokeWidth: 3
         );*/
 
-        initSocket();
-        checkGps();
-        initBiometrics();
-    }
+    initSocket();
+    checkGps();
+    initBiometrics();
+  }
 
   void initBiometrics(){
-      localAuth = LocalAuthentication();
-      localAuth!.canCheckBiometrics.then((b){
-          isBiomtricAvailable = b;
-      });
+    localAuth = LocalAuthentication();
+    localAuth!.canCheckBiometrics.then((b){
+      isBiomtricAvailable = b;
+    });
   }
 
   void initSocket(){
@@ -99,9 +101,14 @@ class HomeController {
       'transports': ['websocket'],
       'autoConnect': false
     });
-    socket.connect();
-    //Asignamos evento cuando ocurra un error
-    socket.onConnectError((data) => print('Error de Conexion de Socket: $data'));
+    if( socket != null ) {
+      socket!.connect();
+      //Asignamos evento cuando ocurra un error
+      socket!.onConnectError((data) =>
+          print('Error de Conexion de Socket: $data'));
+    }else{
+      print('Socket está en Nulo');
+    }
   }
 
   void openDrawer() {
@@ -130,7 +137,11 @@ class HomeController {
   Future<void> sendAllData() async {
     print('Enviara Alerta: ');
     checkGps();
-    print("LAT: ${_currentPosition.latitude}, LNG: ${_currentPosition.longitude}");
+    if( _currentPosition == null ){
+      print('No capturó Localización: ');
+      return;
+    }
+    print("LAT: ${_currentPosition!.latitude}, LNG: ${_currentPosition!.longitude}");
 
     if (imageFile == null) {
       MySnackbar.show(context!, Constant.choose_image);
@@ -143,7 +154,7 @@ class HomeController {
     DateTime now = DateTime.now();
     final String cur_register_date = DateFormat('dd-MM-yyyy kk:mm:ss').format(now);
 
-    int userid = usersProvider.getCurrentUserId();
+    int userid = await usersProvider.getCurrentUserId();
     /*int userid = -1;
 
     try {
@@ -160,14 +171,14 @@ class HomeController {
         type: 1,
         state: 1,
         userid: userid,
-        long: _currentPosition.longitude.toString(),
-        lat: _currentPosition.latitude.toString(),
+        long: _currentPosition!.longitude.toString(),
+        lat: _currentPosition!.latitude.toString(),
         register_date: cur_register_date
     );
 
     Stream? stream = await alertProvider.sendWithImage(newAlert, imageFile!);
     if ( stream != null) {
-      stream!.listen((res) {
+      stream.listen((res) {
         _progressDialog!.close();
 
         try {
@@ -255,11 +266,11 @@ class HomeController {
   void updateLocation() async {
     try {
 
-        _currentPosition = await _determinePosition(); // OBTENER LA POSICION ACTUAL Y TAMBIEN SOLICITAR LOS PERMISOS
+      _currentPosition = await _determinePosition(); // OBTENER LA POSICION ACTUAL Y TAMBIEN SOLICITAR LOS PERMISOS
 
-        //emitPosition();
+      //emitPosition();
 
-        refresh!();
+      refresh!();
 
     } catch(e) {
       print('Error: $e');
@@ -267,38 +278,43 @@ class HomeController {
   }
 
   Future<Position> _determinePosition() async {
-  bool serviceEnabled;
-  LocationPermission permission;
+    bool serviceEnabled;
+    LocationPermission permission;
 
-  serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnabled) {
-    return Future.error('Los servicios de Ubicación están desactivados');
-  }
-
-  permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied) {
-      return Future.error('Los permisos de Ubicación fueron denegados');
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Los servicios de Ubicación están desactivados');
     }
-  }
 
-  if (permission == LocationPermission.deniedForever) {
-    return Future.error('Los Permisos de Ubicación están denegados permanentemente. No se pueden requerir.');
-  }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Los permisos de Ubicación fueron denegados');
+      }
+    }
 
-  return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best, forceAndroidLocationManager: true);
-}
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error('Los Permisos de Ubicación están denegados permanentemente. No se pueden requerir.');
+    }
+
+    return await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best, forceAndroidLocationManager: true);
+  }
 
   void emitPosition() {
     print("Emitira Posicion: ");
     //Actualizo el Gps antes
     checkGps();
-    socket.emit('position', {
-      'userid': user!.id,
-      'lat': _currentPosition.latitude,
-      'lon': _currentPosition.longitude,
-    });
+    if( socket!=null) {
+      socket!.emit('position', {
+        'userid': user!.id,
+        'lat': _currentPosition!.latitude,
+        'lon': _currentPosition!.longitude,
+      });
+    }
+    else{
+      print('Socket está en Nulo: emitPosition');
+    }
   }
 
   void goToUpdatePage() {
@@ -324,9 +340,9 @@ class HomeController {
     timerObj?.cancel();
   }
 
-    Future<void> getBatteryLevel() async{
-      batteryLevel = AndroidBatteryInfo().batteryLevel!;
-    }
+  Future<void> getBatteryLevel() async{
+    batteryLevel = AndroidBatteryInfo().batteryLevel!;
+  }
 
   //Enviará Alerta de Marcación
   Future<void> sendMark({int fromBiometric : 0}) async {
@@ -343,8 +359,8 @@ class HomeController {
     Mark newMark = Mark(
         type          : 1,
         state         : 1,
-        lon           : _currentPosition.longitude.toString(),
-        lat           : _currentPosition.latitude.toString(),
+        lon           : _currentPosition!.longitude.toString(),
+        lat           : _currentPosition!.latitude.toString(),
         register_date : cur_register_date,
         biometric     : fromBiometric.toString()
     );
@@ -379,7 +395,7 @@ class HomeController {
       else {
         Stream? stream = await markProvider.sendWithImage(newMark, markImageFile!);
         if (stream != null) {
-          stream!.listen((res) {
+          stream.listen((res) {
             _progressDialog!.close();
 
             try {
@@ -419,6 +435,10 @@ class HomeController {
     Navigator.pushNamed(context!, 'signature');
   }
 
+  Future<void> goToAttendance() async{
+    Navigator.pushNamed(context!, 'attendance');
+  }
+
   Future<void> sendBiometrics() async{
     if( isBiomtricAvailable) {
       final bool didAuthentication = await localAuth!.authenticate(
@@ -436,7 +456,7 @@ class HomeController {
     }
   }
 
-  /*
+/*
   Future<void> getSign() async{
       if(signController!.isNotEmpty){
           final signature = await exportSignature();

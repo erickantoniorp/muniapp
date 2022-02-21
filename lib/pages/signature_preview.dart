@@ -52,11 +52,11 @@ class SignaturePreviewPage extends StatelessWidget {
 
     if (isSuccess) {
 
-      MySnackbar.show(context!, 'Guardado en Carpeta de Firmas');
+      MySnackbar.show(context, 'Guardado en Carpeta de Firmas');
       //Navigator.pop(context);
       Navigator.pushReplacementNamed(context, 'home');
     } else {
-      MySnackbar.show(context!, 'Falló al guardar la firma');
+      MySnackbar.show(context, 'Falló al guardar la firma');
     }
   }
 }

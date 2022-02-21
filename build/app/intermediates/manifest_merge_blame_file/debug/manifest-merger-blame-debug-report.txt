@@ -1,0 +1,208 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.itec.itecmuniapp"
+4    android:versionCode="1"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+9        android:targetSdkVersion="30" />
+10    <!--
+11         Flutter needs it to communicate with the running application
+12         to allow setting breakpoints, to provide hot reload, etc.
+13    -->
+14    <uses-permission android:name="android.permission.INTERNET" />
+14-->C:\android\muniapp\android\app\src\debug\AndroidManifest.xml:6:5-66
+14-->C:\android\muniapp\android\app\src\debug\AndroidManifest.xml:6:22-64
+15    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+15-->C:\android\muniapp\android\app\src\main\AndroidManifest.xml:34:5-81
+15-->C:\android\muniapp\android\app\src\main\AndroidManifest.xml:34:22-78
+16    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+16-->C:\android\muniapp\android\app\src\main\AndroidManifest.xml:35:5-79
+16-->C:\android\muniapp\android\app\src\main\AndroidManifest.xml:35:22-76
+17    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+17-->C:\android\muniapp\android\app\src\main\AndroidManifest.xml:36:5-77
+17-->C:\android\muniapp\android\app\src\main\AndroidManifest.xml:36:22-74
+18    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+18-->C:\android\muniapp\android\app\src\main\AndroidManifest.xml:37:5-84
+18-->C:\android\muniapp\android\app\src\main\AndroidManifest.xml:37:22-82
+19    <uses-permission android:name="android.permission.USE_BIOMETRIC " />
+19-->C:\android\muniapp\android\app\src\main\AndroidManifest.xml:38:5-72
+19-->C:\android\muniapp\android\app\src\main\AndroidManifest.xml:38:22-70
+20    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+20-->[:local_auth] C:\android\muniapp\build\local_auth\intermediates\library_manifest\debug\AndroidManifest.xml:9:5-74
+20-->[:local_auth] C:\android\muniapp\build\local_auth\intermediates\library_manifest\debug\AndroidManifest.xml:9:22-71
+21    <uses-permission android:name="android.permission.CAMERA" />
+21-->[:camera] C:\android\muniapp\build\camera\intermediates\library_manifest\debug\AndroidManifest.xml:9:5-65
+21-->[:camera] C:\android\muniapp\build\camera\intermediates\library_manifest\debug\AndroidManifest.xml:9:22-62
+22    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+22-->[:camera] C:\android\muniapp\build\camera\intermediates\library_manifest\debug\AndroidManifest.xml:10:5-71
+22-->[:camera] C:\android\muniapp\build\camera\intermediates\library_manifest\debug\AndroidManifest.xml:10:22-68
+23    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+23-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-81
+23-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:7:22-78
+24    <uses-permission android:name="android.permission.VIBRATE" />
+24-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:8:5-66
+24-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:8:22-63
+25    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+25-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:9:5-81
+25-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:9:22-78
+26    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+26-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:10:5-79
+26-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:10:22-76
+27    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+27-->[androidx.biometric:biometric:1.1.0] C:\Users\Erick\.gradle\caches\transforms-2\files-2.1\cbb3d625d33b72056d970fab9ec3f1b4\biometric-1.1.0\AndroidManifest.xml:24:5-72
+27-->[androidx.biometric:biometric:1.1.0] C:\Users\Erick\.gradle\caches\transforms-2\files-2.1\cbb3d625d33b72056d970fab9ec3f1b4\biometric-1.1.0\AndroidManifest.xml:24:22-69
+28    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+28-->[com.google.android.exoplayer:exoplayer-core:2.14.1] C:\Users\Erick\.gradle\caches\transforms-2\files-2.1\ad86b8364dafe3749169a467acdcc07a\jetified-exoplayer-core-2.14.1\AndroidManifest.xml:24:5-79
+28-->[com.google.android.exoplayer:exoplayer-core:2.14.1] C:\Users\Erick\.gradle\caches\transforms-2\files-2.1\ad86b8364dafe3749169a467acdcc07a\jetified-exoplayer-core-2.14.1\AndroidManifest.xml:24:22-76
+29
+30    <application
+31        android:name="android.app.Application"
+32        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+32-->[androidx.core:core:1.6.0] C:\Users\Erick\.gradle\caches\transforms-2\files-2.1\122df2e57d294d1a53db26bbc3b813c1\core-1.6.0\AndroidManifest.xml:24:18-86
+33        android:debuggable="true"
+34        android:icon="@mipmap/launcher_icon"
+35        android:label="muniapp" >
+36        <activity
+37            android:name="com.itec.muniapp.MainActivity"
+38            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+39            android:exported="true"
+40            android:hardwareAccelerated="true"
+41            android:launchMode="singleTop"
+42            android:theme="@style/LaunchTheme"
+43            android:windowSoftInputMode="adjustResize" >
+44
+45            <!--
+46                 Specifies an Android theme to apply to this Activity as soon as
+47                 the Android process has started. This theme is visible to the user
+48                 while the Flutter UI initializes. After that, this theme continues
+49                 to determine the Window background behind the Flutter UI.
+50            -->
+51            <meta-data
+52                android:name="io.flutter.embedding.android.NormalTheme"
+53                android:resource="@style/NormalTheme" />
+54
+55            <intent-filter>
+56                <action android:name="android.intent.action.MAIN" />
+57
+58                <category android:name="android.intent.category.LAUNCHER" />
+59            </intent-filter>
+60        </activity>
+61        <!--
+62             Don't delete the meta-data below.
+63             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+64        -->
+65        <meta-data
+66            android:name="flutterEmbedding"
+67            android:value="2" />
+68
+69        <service
+69-->[:geolocator_android] C:\android\muniapp\build\geolocator_android\intermediates\library_manifest\debug\AndroidManifest.xml:10:9-14:56
+70            android:name="com.baseflow.geolocator.GeolocatorLocationService"
+70-->[:geolocator_android] C:\android\muniapp\build\geolocator_android\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-77
+71            android:enabled="true"
+71-->[:geolocator_android] C:\android\muniapp\build\geolocator_android\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-35
+72            android:exported="false"
+72-->[:geolocator_android] C:\android\muniapp\build\geolocator_android\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-37
+73            android:foregroundServiceType="location" />
+73-->[:geolocator_android] C:\android\muniapp\build\geolocator_android\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-53
+74
+75        <provider
+75-->[:image_picker] C:\android\muniapp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-16:20
+76            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+76-->[:image_picker] C:\android\muniapp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-82
+77            android:authorities="com.itec.itecmuniapp.flutter.image_provider"
+77-->[:image_picker] C:\android\muniapp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-74
+78            android:exported="false"
+78-->[:image_picker] C:\android\muniapp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-37
+79            android:grantUriPermissions="true" >
+79-->[:image_picker] C:\android\muniapp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-47
+80            <meta-data
+80-->[:image_picker] C:\android\muniapp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-15:75
+81                android:name="android.support.FILE_PROVIDER_PATHS"
+81-->[:image_picker] C:\android\muniapp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:14:17-67
+82                android:resource="@xml/flutter_image_picker_file_paths" />
+82-->[:image_picker] C:\android\muniapp\build\image_picker\intermediates\library_manifest\debug\AndroidManifest.xml:15:17-72
+83        </provider>
+84
+85        <receiver
+85-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:13:9-15:40
+86            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver"
+86-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-97
+87            android:exported="false" />
+87-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-37
+88        <receiver
+88-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:16:9-25:20
+89            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver"
+89-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:17:13-101
+90            android:exported="false" >
+90-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:18:13-37
+91            <intent-filter>
+91-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:19:13-24:29
+92                <action android:name="android.intent.action.BOOT_COMPLETED" />
+92-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:20:17-79
+92-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:20:25-76
+93                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+93-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:21:17-84
+93-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:21:25-81
+94                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+94-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:22:17-82
+94-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:22:25-79
+95                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON" />
+95-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:23:17-82
+95-->[:flutter_local_notifications] C:\android\muniapp\build\flutter_local_notifications\intermediates\library_manifest\debug\AndroidManifest.xml:23:25-79
+96            </intent-filter>
+97        </receiver>
+98
+99        <activity
+99-->[:url_launcher_android] C:\android\muniapp\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:8:9-11:74
+100            android:name="io.flutter.plugins.urllauncher.WebViewActivity"
+100-->[:url_launcher_android] C:\android\muniapp\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:9:13-74
+101            android:exported="false"
+101-->[:url_launcher_android] C:\android\muniapp\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:10:13-37
+102            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+102-->[:url_launcher_android] C:\android\muniapp\build\url_launcher_android\intermediates\library_manifest\debug\AndroidManifest.xml:11:13-71
+103
+104        <service
+104-->[:location] C:\android\muniapp\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:11:9-15:56
+105            android:name="com.lyokone.location.FlutterLocationService"
+105-->[:location] C:\android\muniapp\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:12:13-71
+106            android:enabled="true"
+106-->[:location] C:\android\muniapp\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-35
+107            android:exported="false"
+107-->[:location] C:\android\muniapp\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-37
+108            android:foregroundServiceType="location" />
+108-->[:location] C:\android\muniapp\build\location\intermediates\library_manifest\debug\AndroidManifest.xml:15:13-53
+109
+110        <uses-library
+110-->[androidx.window:window:1.0.0-beta04] C:\Users\Erick\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+111            android:name="androidx.window.extensions"
+111-->[androidx.window:window:1.0.0-beta04] C:\Users\Erick\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+112            android:required="false" />
+112-->[androidx.window:window:1.0.0-beta04] C:\Users\Erick\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+113        <uses-library
+113-->[androidx.window:window:1.0.0-beta04] C:\Users\Erick\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+114            android:name="androidx.window.sidecar"
+114-->[androidx.window:window:1.0.0-beta04] C:\Users\Erick\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
+115            android:required="false" />
+115-->[androidx.window:window:1.0.0-beta04] C:\Users\Erick\.gradle\caches\transforms-2\files-2.1\03c633e46d75bfb21f082f0417f55161\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+116
+117        <activity
+117-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\Erick\.gradle\caches\transforms-2\files-2.1\3679fa9be1d67d14c72169d3353f14d4\jetified-play-services-base-17.0.0\AndroidManifest.xml:23:9-26:75
+118            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+118-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\Erick\.gradle\caches\transforms-2\files-2.1\3679fa9be1d67d14c72169d3353f14d4\jetified-play-services-base-17.0.0\AndroidManifest.xml:24:13-79
+119            android:exported="false"
+119-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\Erick\.gradle\caches\transforms-2\files-2.1\3679fa9be1d67d14c72169d3353f14d4\jetified-play-services-base-17.0.0\AndroidManifest.xml:25:13-37
+120            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+120-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\Erick\.gradle\caches\transforms-2\files-2.1\3679fa9be1d67d14c72169d3353f14d4\jetified-play-services-base-17.0.0\AndroidManifest.xml:26:13-72
+121
+122        <meta-data
+122-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\Erick\.gradle\caches\transforms-2\files-2.1\a7975ba3cb0c3630bd14453686890431\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
+123            android:name="com.google.android.gms.version"
+123-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\Erick\.gradle\caches\transforms-2\files-2.1\a7975ba3cb0c3630bd14453686890431\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
+124            android:value="@integer/google_play_services_version" />
+124-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\Erick\.gradle\caches\transforms-2\files-2.1\a7975ba3cb0c3630bd14453686890431\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
+125    </application>
+126
+127</manifest>
