@@ -6,9 +6,10 @@ import 'package:flutter/scheduler.dart';
 import 'package:muniapp/utils/mycolors.dart';
 
 import '../controllers/attendance_controller.dart';
+import '../utils/my_snackbar.dart';
 
 class AttendancePage extends StatefulWidget {
-  const AttendancePage({Key? key}) : super(key: key);
+  const AttendancePage( {Key? key}) : super(key: key);
 
   @override
   _AttendancePageState createState() => _AttendancePageState();
@@ -23,9 +24,11 @@ class _AttendancePageState extends State<AttendancePage> {
       // TODO: implement initState
       super.initState();
 
-      SchedulerBinding.instance?.addPostFrameCallback((timeStamp) {
+      SchedulerBinding.instance?.addPostFrameCallback((timeStamp)  {
         _con.init(context, refresh);
       });
+
+      print("Termino initState");
     }
 
     @override
@@ -68,7 +71,7 @@ class _AttendancePageState extends State<AttendancePage> {
                       ),
                       onTap: () {
                         print("Marcar Entrada");
-                        //sendAlert(alertType: 1);
+                        _con.sendMark(markType: 1);
                       },
                     ),
                     InkWell(
@@ -80,7 +83,7 @@ class _AttendancePageState extends State<AttendancePage> {
                       ),
                       onTap: () {
                         print("Inicio Almuerzo");
-                        //sendAlert(alertType: 2);
+                        _con.sendMark(markType: 2);
                       },
                     ),
                     InkWell(
@@ -92,7 +95,7 @@ class _AttendancePageState extends State<AttendancePage> {
                       ),
                       onTap: () {
                         print("Fin Almuerzo");
-                        //sendAlert(alertType: 3);
+                        _con.sendMark(markType: 3);
                       },
                     ),
                     InkWell(
@@ -104,7 +107,7 @@ class _AttendancePageState extends State<AttendancePage> {
                       ),
                       onTap: () {
                         print("Marcar Salida");
-                        //sendAlert(alertType: 1);
+                        _con.sendMark(markType: 4);
                       },
                     ),
                   ]),
@@ -116,8 +119,9 @@ class _AttendancePageState extends State<AttendancePage> {
 
     Widget CamContainer() {
       //final CameraController? cameraController = controller;
-
+      print("Entra a CamContainer");
       if (_con.controller == null || !_con.controller!.value.isInitialized) {
+        print("camcontroller is null");
         return Center(
             child: CircularProgressIndicator(
               color: Colors.indigo,
@@ -132,6 +136,7 @@ class _AttendancePageState extends State<AttendancePage> {
         ),*/
         );
       } else {
+        print("mostrara el campreview");
         return Listener(
           child: CameraPreview(
               _con.controller! /*,
@@ -151,5 +156,73 @@ class _AttendancePageState extends State<AttendancePage> {
       setState(() {
 
       });
+    }
+
+    @override
+    void didChangeAppLifecycleState(AppLifecycleState state) {
+      final CameraController? cameraController = _con.controller;
+
+      // App state changed before we got the chance to initialize.
+      if (cameraController == null || !cameraController.value.isInitialized) {
+        return;
+      }
+
+      if (state == AppLifecycleState.inactive) {
+        cameraController.dispose();
+      } else if (state == AppLifecycleState.resumed) {
+        onNewCameraSelected(cameraController.description);
+      }
+    }
+
+    Future<void> onNewCameraSelected(CameraDescription cameraDescription) async {
+        final previousCameraController =_con.controller;
+
+        if (_con.controller != null) {
+            await _con.controller!.dispose();
+        }
+
+        final CameraController cameraController = CameraController(
+            cameraDescription,
+            ResolutionPreset.medium,
+            //imageFormatGroup: ImageFormatGroup.jpeg,
+        );
+
+        _con.controller = cameraController;
+
+        // If the controller is updated then update the UI.
+        if (mounted) {
+          setState(() {
+            _con.controller = cameraController;
+          });
+        }
+
+        cameraController.addListener(() {
+          if (mounted) setState(() {});
+        });
+
+        // Initialize controller
+        try {
+          await cameraController.initialize();
+        } on CameraException catch (e) {
+          print('Error initializing camera: $e');
+        }
+
+        // Update the Boolean
+        if (mounted) {
+          setState(() {
+            _con.isCameraInitialized = _con.controller!.value.isInitialized;
+          });
+        }
+
+        if (cameraController.value.hasError) {
+          MySnackbar.show(context, 'Camera error ${cameraController.value.errorDescription}');
+        }
+
+    }
+
+    @override
+    void dispose() {
+      _con.controller?.dispose();
+      super.dispose();
     }
 }

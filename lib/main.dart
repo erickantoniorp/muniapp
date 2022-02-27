@@ -1,12 +1,20 @@
 import 'dart:convert';
 
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:muniapp/utils/globals.dart';
 import 'package:muniapp/utils/utils.dart';
 import 'package:muniapp/pages/pages.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+
+Future<void> main() async{
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    globalCameras = await availableCameras();
+  } on CameraException catch (e) {
+    print('Error al intentar cargar camaras en Main: $e');
+  }
   runApp(const MyApp());
 }
 
