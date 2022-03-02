@@ -3,7 +3,7 @@ import 'dart:convert';
 
 class Mark{
   Mark({
-    //this.userid,
+    this.userid,
     this.id,
     required this.type,
     required this.state,
@@ -15,7 +15,7 @@ class Mark{
     this.batterylevel
   });
 
-  //int ?userid;
+  int ?userid;
   int ?id;
   int type;
   int state;
@@ -31,7 +31,7 @@ class Mark{
   String toJson() => json.encode(toMap());
 
   factory Mark.fromMap(Map<String, dynamic> json) => Mark(
-    //userid: json["userid"],
+    userid          : json["userid"],
     id              : json["id"],
     type            : json["type"],
     state           : json["state"],
@@ -44,7 +44,7 @@ class Mark{
   );
 
   Map<String, dynamic> toMap() => {
-    //"userid": userid,
+    "userid"        : userid,
     "id"            : id,
     "type"          : type,
     "state"         : state,

@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';
 import 'package:camera/camera.dart';
 import 'package:location/location.dart' as location;
+import 'package:uri_to_file/uri_to_file.dart';
 
 import '../models/api_response.dart';
 import '../models/mark.dart';
@@ -102,10 +103,11 @@ class AttendanceController {
             // Si la foto fue tomada, guardamos la ruta.
             imagePath = image.path;
             //setState(() {
-                imageFilePath = imagePath;
-                cameraWasUsed = true;
+            imageFilePath = imagePath;
+            cameraWasUsed = true;
             //});
             print("Archivo: $imagePath");
+            markImageFile =  await toFile( imageFilePath );
         } catch (e) {
             // Si ocurriera un error, lo mostramos
             print(e);
@@ -141,15 +143,17 @@ class AttendanceController {
         await getBatteryLevel();
 
         Mark newMark = Mark(
-            type          : markType,
-            state         : 1,
-            lon           : _currentPosition!.longitude.toString(),
-            lat           : _currentPosition!.latitude.toString(),
-            register_date : cur_register_date,
-            biometric     : fromBiometric.toString()
+            userid          : userid,
+            type            : markType,
+            state           : 1,
+            lon             : _currentPosition!.longitude.toString(),
+            lat             : _currentPosition!.latitude.toString(),
+            register_date   : cur_register_date,
+            biometric       : fromBiometric.toString()
         );
 
         try {
+            //Sin Imagen
             if (markImageFile == null) {
                 responseApi = await markProvider.send(newMark);
                 print('Respuesta object: ${responseApi}');
@@ -191,19 +195,22 @@ class AttendanceController {
 
                             if (responseApi.success == "true") {
                                 /*Future.delayed(Duration(seconds: 3), () {
-                    Navigator.pushReplacementNamed(context!, 'login');
-                  });*/
+                                    Navigator.pushReplacementNamed(context!, 'login');
+                                  });*/
 
                             }
                             else {
                                 isEnable = true;
                             }
                         } on Exception catch (exception) {
+                            cameraWasUsed = false;
                             print(exception.toString());
                         } catch (error) {
+                            cameraWasUsed = false;
                             print(error.toString());
                         }
                     });
+                    cameraWasUsed = false;
                 }
             }
         }on Exception catch (exception) {
@@ -213,6 +220,7 @@ class AttendanceController {
             print(error.toString());
             _progressDialog!.close();
         }
+        refresh!();
     }
 
     void checkGps() async {
@@ -268,6 +276,8 @@ class AttendanceController {
     }
 
     Future<void> getBatteryLevel() async{
-        batteryLevel = AndroidBatteryInfo().batteryLevel!;
+        if( AndroidBatteryInfo().batteryLevel != null)
+            batteryLevel = AndroidBatteryInfo().batteryLevel!;
+        else batteryLevel = 0;
     }
 }

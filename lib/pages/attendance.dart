@@ -71,7 +71,7 @@ class _AttendancePageState extends State<AttendancePage> {
                       ),
                       onTap: () {
                         print("Marcar Entrada");
-                        _con.sendMark(markType: 1);
+                        _con.takePicAndSendMark(markType: 1);
                       },
                     ),
                     InkWell(
@@ -83,7 +83,7 @@ class _AttendancePageState extends State<AttendancePage> {
                       ),
                       onTap: () {
                         print("Inicio Almuerzo");
-                        _con.sendMark(markType: 2);
+                        _con.takePicAndSendMark(markType: 2);
                       },
                     ),
                     InkWell(
@@ -95,7 +95,7 @@ class _AttendancePageState extends State<AttendancePage> {
                       ),
                       onTap: () {
                         print("Fin Almuerzo");
-                        _con.sendMark(markType: 3);
+                        _con.takePicAndSendMark(markType: 3);
                       },
                     ),
                     InkWell(
@@ -107,7 +107,7 @@ class _AttendancePageState extends State<AttendancePage> {
                       ),
                       onTap: () {
                         print("Marcar Salida");
-                        _con.sendMark(markType: 4);
+                        _con.takePicAndSendMark(markType: 4);
                       },
                     ),
                   ]),
